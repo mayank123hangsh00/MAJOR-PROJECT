@@ -24,11 +24,11 @@ const ListingSchema = new Schema({
   ],
   owner: {
     type: Schema.Types.ObjectId,
-    ref: "User",
+    ref: "User",    // this ref User means to refered to the user model
   },
 });
 
-ListingSchema.post("findOneAndDelete", async (listing) =>{
+ListingSchema.post("findOneAndDelete", async (listing) =>{  // This mongoose middleware is used for when listing document is deleted then all reviws also deleted //
   if(listing){
       await Review.deleteMany({_id : {$in: listing.reviews}});
   }
